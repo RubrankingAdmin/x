@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rubrankings admin</title>
+
+    <!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/68ac5600891afb1924e060ac/1j3givsuo';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family:
+                "Open Sans"
+                sans-serif;
+            background: #111;
+            color: #ddd;
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        
+        .topbar {
+            background: #000;
+            color: #fff;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #222;
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tag-pill {
+            background: #6b21a8;
+            padding: 6px 12px;
+            /* border-radius: 8px; */
+            font-size: 0.9rem;
+            color: #fff;
+        }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn {
+            background: #6b21a8;
+            color: #fff;
+            padding: 8px 12px;
+            /* border-radius: 8px; */
+            font-size: 0.9rem;
+            transition: filter .2s ease;
+        }
+
+        .btn:hover {
+            filter: brightness(1.15);
+        }
+
+        .icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #222;
+            display: inline-block;
+        }
+
+        
+        .brand {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            border-bottom: 1px solid #222;
+            background: #0a0a0a;
+        }
+
+        .brand .logo {
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: .3px;
+        }
+
+        .brand .add {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #fff;
+        }
+
+        .brand .add .plus {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #6b21a8;
+            font-weight: 700;
+        }
+
+       
+        .tagline {
+            padding: 18px 16px;
+            text-align: left;
+            font-size: 1.05rem;
+            color: #e8e8e8;
+        }
+
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 16px 90px;
+            /* bottom padding to avoid overlap with sticky banner */
+        }
+
+        .container h2 {
+            color: #fff;
+            font-size: 1.2rem;
+            margin: 8px 0 16px;
+        }
+
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 24px 40px;
+        }
+
+        .state h3 {
+            color: #8b5cf6;
+            /* purple */
+            font-size: 1rem;
+            margin-bottom: 6px;
+        }
+
+        .state ul {
+            list-style: none;
+            margin-left: 2px;
+        }
+
+        .state li {
+            margin: 3px 0;
+        }
+
+        .state a {
+            color: #d0cfe1;
+            text-transform: lowercase;
+            transition: color .2s ease;
+        }
+
+        .state a:hover {
+            color: #ffffff;
+        }
+
+        
+        .capsule {
+            position: fixed;
+            right: 14px;
+            bottom: 90px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #2a1142;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 999px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, .35);
+            font-size: .9rem;
+        }
+
+        .switch {
+            width: 44px;
+            height: 24px;
+            border-radius: 999px;
+            background: #6b21a8;
+            position: relative;
+        }
+
+        .switch::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 22px;
+            width: 18px;
+            height: 18px;
+            background: #fff;
+            border-radius: 999px;
+        }
+
+        
+        .notice {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #6b21a8;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            z-index: 90;
+        }
+
+        .notice .cta {
+            background: #fff;
+            color: #6b21a8;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 999px;
+            font-weight: 700;
+        }
+
+        /* Responsive */
+        @media (max-width: 820px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tagline {
+                text-align: left;
+           
+        }
+    </style>
+</head>
+
+<body>
+
+    
+    <div class="topbar">
+        <div class="topbar-left">
+            <span class="tag-pill">View Cities</span>
+        </div>
+        <div class="topbar-actions">
+            <span class="icon" title="Account"></span>
+            <a class="btn" href="#">Chat with Staff</a>
+        </div>
+    </div>
+
+   
+    <div class="brand">
+        <div class="logo"><img src="img/logo.webp" alt=""></div>
+        <div class="add"> <span class="plus">+</span> <span>Add A Listing</span></div>
+    </div>
+
+    
+    <div class="tagline">
+        <h2>Find Body Rubs All Across America Dallas, Chicago, Atlanta, Houston.</h2>
+    </div>
+
+    
+    <main class="container">
+        <h3>United States</h3>
+        <div class="grid">
+
+            <div class="state">
+                <h3>Alabama</h3>
+                <ul>
+                    <li><a href="#">birmingham</a></li>
+                    <li><a href="#">huntsville</a></li>
+                    <li><a href="#">mobile</a></li>
+                    <li><a href="#">montgomery</a></li>
+                    <li><a href="#">tuscaloosa</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Alaska</h3>
+                <ul>
+                    <li><a href="#">anchorage</a></li>
+                    <li><a href="#">fairbanks</a></li>
+                    <li><a href="#">juneau</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Arizona</h3>
+                <ul>
+                    <li><a href="#">flagstaff/sedona</a></li>
+                    <li><a href="#">phoenix</a></li>
+                    <li><a href="#">scottsdale</a></li>
+                    <li><a href="#">tempe</a></li>
+                    <li><a href="#">tucson</a></li>
+                    <li><a href="#">mesa</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Arkansas</h3>
+                <ul>
+                    <li><a href="#">fayetteville</a></li>
+                    <li><a href="#">little rock</a></li>
+                    <li><a href="#">fort smith</a></li>
+                    <li><a href="#">jonesboro</a></li>
+                    <li><a href="#">hot springs</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>California</h3>
+                <ul>
+                    <li><a href="#">los angeles</a></li>
+                    <li><a href="#">san diego</a></li>
+                    <li><a href="#">san jose</a></li>
+                    <li><a href="#">san francisco</a></li>
+                    <li><a href="#">sacramento</a></li>
+                    <li><a href="#">fresno</a></li>
+                    <li><a href="#">oakland</a></li>
+                    <li><a href="#">long beach</a></li>
+                    <li><a href="#">anaheim</a></li>
+                    <li><a href="#">bakersfield</a></li>
+                    <li><a href="#">riverside</a></li>
+                    <li><a href="#">santa barbara</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Colorado</h3>
+                <ul>
+                    <li><a href="#">denver</a></li>
+                    <li><a href="#">boulder</a></li>
+                    <li><a href="#">colorado springs</a></li>
+                    <li><a href="#">fort collins</a></li>
+                    <li><a href="#">pueblo</a></li>
+                    <li><a href="#">greeley</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Connecticut</h3>
+                <ul>
+                    <li><a href="#">bridgeport</a></li>
+                    <li><a href="#">new haven</a></li>
+                    <li><a href="#">hartford</a></li>
+                    <li><a href="#">stamford</a></li>
+                    <li><a href="#">norwalk</a></li>
+                </ul>
+            </div>
+      
+
+
+            <div class="state">
+                <h3>Delaware</h3>
+                <ul>
+                    <li><a href="#">wilmington</a></li>
+                    <li><a href="#">dover</a></li>
+                    <li><a href="#">newark</a></li>
+                    <li><a href="#">rehoboth beach</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>District of Columbia</h3>
+                <ul>
+                    <li><a href="#">washington</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Florida</h3>
+                <ul>
+                    <li><a href="#">miami</a></li>
+                    <li><a href="#">orlando</a></li>
+                    <li><a href="#">tampa</a></li>
+                    <li><a href="#">jacksonville</a></li>
+                    <li><a href="#">fort lauderdale</a></li>
+                    <li><a href="#">west palm beach</a></li>
+                    <li><a href="#">st. petersburg</a></li>
+                    <li><a href="#">sarasota</a></li>
+                    <li><a href="#">tallahassee</a></li>
+                    <li><a href="#">pensacola</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Georgia</h3>
+                <ul>
+                    <li><a href="#">atlanta</a></li>
+                    <li><a href="#">savannah</a></li>
+                    <li><a href="#">augusta</a></li>
+                    <li><a href="#">athens</a></li>
+                    <li><a href="#">macon</a></li>
+                    <li><a href="#">columbus</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Hawaii</h3>
+                <ul>
+                    <li><a href="#">honolulu</a></li>
+                    <li><a href="#">hilo</a></li>
+                    <li><a href="#">kahului (maui)</a></li>
+                    <li><a href="#">lihue (kauai)</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Idaho</h3>
+                <ul>
+                    <li><a href="#">boise</a></li>
+                    <li><a href="#">idaho falls</a></li>
+                    <li><a href="#">twin falls</a></li>
+                    <li><a href="#">coeur d'alene</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Illinois</h3>
+                <ul>
+                    <li><a href="#">chicago</a></li>
+                    <li><a href="#">aurora</a></li>
+                    <li><a href="#">naperville</a></li>
+                    <li><a href="#">springfield</a></li>
+                    <li><a href="#">peoria</a></li>
+                    <li><a href="#">rockford</a></li>
+                    <li><a href="#">champaign</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Indiana</h3>
+                <ul>
+                    <li><a href="#">indianapolis</a></li>
+                    <li><a href="#">fort wayne</a></li>
+                    <li><a href="#">evansville</a></li>
+                    <li><a href="#">south bend</a></li>
+                    <li><a href="#">bloomington</a></li>
+                    <li><a href="#">carmel</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Iowa</h3>
+                <ul>
+                    <li><a href="#">des moines</a></li>
+                    <li><a href="#">cedar rapids</a></li>
+                    <li><a href="#">davenport</a></li>
+                    <li><a href="#">iowa city</a></li>
+                    <li><a href="#">sioux city</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Kansas</h3>
+                <ul>
+                    <li><a href="#">wichita</a></li>
+                    <li><a href="#">overland park</a></li>
+                    <li><a href="#">kansas city</a></li>
+                    <li><a href="#">topeka</a></li>
+                    <li><a href="#">lawrence</a></li>
+                    <li><a href="#">olathe</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Kentucky</h3>
+                <ul>
+                    <li><a href="#">louisville</a></li>
+                    <li><a href="#">lexington</a></li>
+                    <li><a href="#">bowling green</a></li>
+                    <li><a href="#">owensboro</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Louisiana</h3>
+                <ul>
+                    <li><a href="#">new orleans</a></li>
+                    <li><a href="#">baton rouge</a></li>
+                    <li><a href="#">shreveport</a></li>
+                    <li><a href="#">lafayette</a></li>
+                    <li><a href="#">lake charles</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Maine</h3>
+                <ul>
+                    <li><a href="#">portland</a></li>
+                    <li><a href="#">bangor</a></li>
+                    <li><a href="#">augusta</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Maryland</h3>
+                <ul>
+                    <li><a href="#">baltimore</a></li>
+                    <li><a href="#">silver spring</a></li>
+                    <li><a href="#">bethesda</a></li>
+                    <li><a href="#">rockville</a></li>
+                    <li><a href="#">frederick</a></li>
+                    <li><a href="#">annapolis</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Massachusetts</h3>
+                <ul>
+                    <li><a href="#">boston</a></li>
+                    <li><a href="#">worcester</a></li>
+                    <li><a href="#">springfield</a></li>
+                    <li><a href="#">cambridge</a></li>
+                    <li><a href="#">lowell</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Michigan</h3>
+                <ul>
+                    <li><a href="#">detroit</a></li>
+                    <li><a href="#">grand rapids</a></li>
+                    <li><a href="#">ann arbor</a></li>
+                    <li><a href="#">lansing</a></li>
+                    <li><a href="#">flint</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Minnesota</h3>
+                <ul>
+                    <li><a href="#">minneapolis</a></li>
+                    <li><a href="#">saint paul</a></li>
+                    <li><a href="#">rochester</a></li>
+                    <li><a href="#">duluth</a></li>
+                    <li><a href="#">bloomington</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Mississippi</h3>
+                <ul>
+                    <li><a href="#">jackson</a></li>
+                    <li><a href="#">gulfport</a></li>
+                    <li><a href="#">biloxi</a></li>
+                    <li><a href="#">hattiesburg</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Missouri</h3>
+                <ul>
+                    <li><a href="#">st. louis</a></li>
+                    <li><a href="#">kansas city</a></li>
+                    <li><a href="#">springfield</a></li>
+                    <li><a href="#">columbia</a></li>
+                    <li><a href="#">independence</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Montana</h3>
+                <ul>
+                    <li><a href="#">billings</a></li>
+                    <li><a href="#">missoula</a></li>
+                    <li><a href="#">bozeman</a></li>
+                    <li><a href="#">great falls</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Nebraska</h3>
+                <ul>
+                    <li><a href="#">omaha</a></li>
+                    <li><a href="#">lincoln</a></li>
+                    <li><a href="#">grand island</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Nevada</h3>
+                <ul>
+                    <li><a href="#">las vegas</a></li>
+                    <li><a href="#">henderson</a></li>
+                    <li><a href="#">reno</a></li>
+                    <li><a href="#">carson city</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>New Hampshire</h3>
+                <ul>
+                    <li><a href="#">manchester</a></li>
+                    <li><a href="#">nashua</a></li>
+                    <li><a href="#">concord</a></li>
+                    <li><a href="#">portsmouth</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>New Jersey</h3>
+                <ul>
+                    <li><a href="#">newark</a></li>
+                    <li><a href="#">jersey city</a></li>
+                    <li><a href="#">paterson</a></li>
+                    <li><a href="#">elizabeth</a></li>
+                    <li><a href="#">trenton</a></li>
+                    <li><a href="#">atlantic city</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>New Mexico</h3>
+                <ul>
+                    <li><a href="#">albuquerque</a></li>
+                    <li><a href="#">santa fe</a></li>
+                    <li><a href="#">las cruces</a></li>
+                    <li><a href="#">roswell</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>New York</h3>
+                <ul>
+                    <li><a href="#">new york city</a></li>
+                    <li><a href="#">buffalo</a></li>
+                    <li><a href="#">rochester</a></li>
+                    <li><a href="#">albany</a></li>
+                    <li><a href="#">syracuse</a></li>
+                    <li><a href="#">yonkers</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>North Carolina</h3>
+                <ul>
+                    <li><a href="#">charlotte</a></li>
+                    <li><a href="#">raleigh</a></li>
+                    <li><a href="#">greensboro</a></li>
+                    <li><a href="#">durham</a></li>
+                    <li><a href="#">asheville</a></li>
+                    <li><a href="#">wilmington</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>North Dakota</h3>
+                <ul>
+                    <li><a href="#">fargo</a></li>
+                    <li><a href="#">bismarck</a></li>
+                    <li><a href="#">grand forks</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Ohio</h3>
+                <ul>
+                    <li><a href="#">columbus</a></li>
+                    <li><a href="#">cleveland</a></li>
+                    <li><a href="#">cincinnati</a></li>
+                    <li><a href="#">toledo</a></li>
+                    <li><a href="#">dayton</a></li>
+                    <li><a href="#">akron</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Oklahoma</h3>
+                <ul>
+                    <li><a href="#">oklahoma city</a></li>
+                    <li><a href="#">tulsa</a></li>
+                    <li><a href="#">norman</a></li>
+                    <li><a href="#">edmond</a></li>
+                    <li><a href="#">stillwater</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Oregon</h3>
+                <ul>
+                    <li><a href="#">portland</a></li>
+                    <li><a href="#">salem</a></li>
+                    <li><a href="#">eugene</a></li>
+                    <li><a href="#">bend</a></li>
+                    <li><a href="#">medford</a></li>
+                    <li><a href="#">corvallis</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Pennsylvania</h3>
+                <ul>
+                    <li><a href="#">philadelphia</a></li>
+                    <li><a href="#">pittsburgh</a></li>
+                    <li><a href="#">allentown</a></li>
+                    <li><a href="#">harrisburg</a></li>
+                    <li><a href="#">erie</a></li>
+                    <li><a href="#">scranton</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Rhode Island</h3>
+                <ul>
+                    <li><a href="#">providence</a></li>
+                    <li><a href="#">warwick</a></li>
+                    <li><a href="#">newport</a></li>
+                    <li><a href="#">cranston</a></li>
+                    <li><a href="#">pawtucket</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>South Carolina</h3>
+                <ul>
+                    <li><a href="#">charleston</a></li>
+                    <li><a href="#">columbia</a></li>
+                    <li><a href="#">greenville</a></li>
+                    <li><a href="#">myrtle beach</a></li>
+                    <li><a href="#">spartanburg</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>South Dakota</h3>
+                <ul>
+                    <li><a href="#">sioux falls</a></li>
+                    <li><a href="#">rapid city</a></li>
+                    <li><a href="#">aberdeen</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Tennessee</h3>
+                <ul>
+                    <li><a href="#">nashville</a></li>
+                    <li><a href="#">memphis</a></li>
+                    <li><a href="#">knoxville</a></li>
+                    <li><a href="#">chattanooga</a></li>
+                    <li><a href="#">clarksville</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Texas</h3>
+                <ul>
+                    <li><a href="#">houston</a></li>
+                    <li><a href="#">dallas</a></li>
+                    <li><a href="#">austin</a></li>
+                    <li><a href="#">san antonio</a></li>
+                    <li><a href="#">fort worth</a></li>
+                    <li><a href="#">el paso</a></li>
+                    <li><a href="#">arlington</a></li>
+                    <li><a href="#">plano</a></li>
+                    <li><a href="#">corpus christi</a></li>
+                    <li><a href="#">lubbock</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Utah</h3>
+                <ul>
+                    <li><a href="#">salt lake city</a></li>
+                    <li><a href="#">provo</a></li>
+                    <li><a href="#">ogden</a></li>
+                    <li><a href="#">st. george</a></li>
+                    <li><a href="#">park city</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Vermont</h3>
+                <ul>
+                    <li><a href="#">burlington</a></li>
+                    <li><a href="#">montpelier</a></li>
+                    <li><a href="#">rutland</a></li>
+                    <li><a href="#">st. albans</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Virginia</h3>
+                <ul>
+                    <li><a href="#">virginia beach</a></li>
+                    <li><a href="#">norfolk</a></li>
+                    <li><a href="#">richmond</a></li>
+                    <li><a href="#">arlington</a></li>
+                    <li><a href="#">alexandria</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Washington</h3>
+                <ul>
+                    <li><a href="#">seattle</a></li>
+                    <li><a href="#">spokane</a></li>
+                    <li><a href="#">tacoma</a></li>
+                    <li><a href="#">bellevue</a></li>
+                    <li><a href="#">everett</a></li>
+                    <li><a href="#">bellingham</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>West Virginia</h3>
+                <ul>
+                    <li><a href="#">charleston</a></li>
+                    <li><a href="#">morgantown</a></li>
+                    <li><a href="#">huntington</a></li>
+                    <li><a href="#">wheeling</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Wisconsin</h3>
+                <ul>
+                    <li><a href="#">milwaukee</a></li>
+                    <li><a href="#">madison</a></li>
+                    <li><a href="#">green bay</a></li>
+                    <li><a href="#">kenosha</a></li>
+                    <li><a href="#">appleton</a></li>
+                </ul>
+            </div>
+
+
+            <div class="state">
+                <h3>Wyoming</h3>
+                <ul>
+                    <li><a href="#">cheyenne</a></li>
+                    <li><a href="#">casper</a></li>
+                    <li><a href="#">laramie</a></li>
+                    <li><a href="#">jackson</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </main>
+
+    
+    <div class="capsule">
+        <span>Only Verified Profiles</span>
+        <div class="switch"></div>
+    </div>
+
+    
+    <div class="notice">
+        <span>New Letter From Staff (7-8-25)</span>
+        <button class="cta">Please Read</button>
+    </div>
+
+</body>
+
+</html>
